@@ -1,44 +1,27 @@
 <template>
     <div>
         <h1>Create an event</h1>
-        <form @submit.prevent="saveEvent">
-            <label>Category</label>
+        <form @submit.prevent="saveOrganize">
+            <label>Name</label>
             <input
-                v-model="event.category"
+                v-model="organize.name"
                 type="text"
-                placeholder="Category"
-                class="field"
-            />
-            <h3>Name & describe your event</h3>
-
-            <label>Title</label>
-            <input 
-                v-model="event.title"
-                type="text"
-                placeholder="Title"
+                placeholder="Name"
                 class="field"
             />
 
-            <label>Description</label>
+            <label>Address</label>
             <input 
-                v-model="event.description"
+                v-model="organize.address"
                 type="text"
-                placeholder="Description"
+                placeholder="Address"
                 class="field"
             />
 
-            <h3>Where is your event?</h3>
-            <label>Location</label>
-            <input 
-                v-model="event.location"
-                type="text"
-                placeholder="Location"
-                class="field"
-            />
             <button type="submit">Submit</button>
         </form>
 
-        <pre>{{ event }}</pre>
+        <pre>{{ organize }}</pre>
     </div>
 </template>
 <script>
@@ -48,17 +31,17 @@ export default {
     ,
     data() {
         return {
-            event: {
-                category: '',
-                title: '',
-                description: '',
-                location: ''
+            organize: {
+                name: '',
+                address: '',
+               
+               
             }
         }
     },
     methods:{
-        saveEvent(){
-            EventService.saveEvent(this.event)
+        saveOrganize(){
+            EventService.saveOrganize(this.organize)
                 .then((response)=>{
                     console.log(response)
                     this.$router.push({
@@ -81,6 +64,7 @@ export default {
 }
 </script>
 <style  scoped>
+
 b,
 strong {
   font-weight: bolder;
