@@ -44,12 +44,12 @@ export default {
             EventService.saveOrganize(this.organize)
                 .then((response)=>{
                     console.log(response)
-                    this.$router.push({
-                     name: 'EventLayout',
-                     params: {id:response.data.id}
+                    // this.$router.push({
+                    //  name: 'EventLayout',
+                    //  params: {id:response.data.id}
 
-                    })
-                    this.GStore.flashMessage = 'You are successfully add a new event for'+ response.data.title
+                    // })
+                    this.GStore.flashMessage = 'You are successfully add a new organizer for'+ response.data.title
                     setTimeout(()=>{
                         this.GStore.flashMessage=''
                     },3000)
