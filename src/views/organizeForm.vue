@@ -1,70 +1,72 @@
 <template>
-    <div>
-        <h1>Create an event</h1>
-        <form @submit.prevent="saveOrganize">
-            <label>Name</label>
-            <input
-                v-model="organize.name"
-                type="text"
-                placeholder="Name"
-                class="field"
-            />
+  <div>
+    <h1>Create an event</h1>
+    <form @submit.prevent="saveOrganize">
+      <label>Name</label>
+      <input
+        v-model="organize.name"
+        type="text"
+        placeholder="Name"
+        class="field"
+      />
 
-            <label>Address</label>
-            <input 
-                v-model="organize.address"
-                type="text"
-                placeholder="Address"
-                class="field"
-            />
+      <label>Address</label>
+      <input
+        v-model="organize.address"
+        type="text"
+        placeholder="Address"
+        class="field"
+      />
 
-            <button type="submit">Submit</button>
-        </form>
+      <button type="submit" v-on:click="retext">Submit</button>
+    </form>
 
-        <pre>{{ organize }}</pre>
-    </div>
+    <pre>{{ organize }}</pre>
+  </div>
 </template>
 <script>
 import EventService from '@/services/EventService.js'
 export default {
-    inject:['GStore']
-    ,
-    data() {
-        return {
-            organize: {
-                name: '',
-                address: '',
-               
-               
-            }
-        }
-    },
-    methods:{
-        saveOrganize(){
-            EventService.saveOrganize(this.organize)
-                .then((response)=>{
-                    console.log(response)
-                    // this.$router.push({
-                    //  name: 'EventLayout',
-                    //  params: {id:response.data.id}
-
-                    // })
-                    this.GStore.flashMessage = 'You are successfully add a new organizer for'+ response.data.title
-                    setTimeout(()=>{
-                        this.GStore.flashMessage=''
-                    },3000)
-                })
-                .catch(()=>{
-                    this.$router.push('NetworkError')
-                })
-            }
-        
+  inject: ['GStore'],
+  data() {
+    return {
+      organize: {
+        name: '',
+        address: ''
+      }
     }
-    
+  },
+  methods: {
+    retext() {
+      console.log('tood')
+    },
+    saveOrganize() {
+      EventService.saveOrganize(this.organize)
+        .then((response) => {
+          console.log(response)
+
+          // this.$router.push({
+          //  name: 'EventLayout',
+          //  params: {id:response.data.id}
+
+          // })
+          this.GStore.flashMessage =
+            'You are successfully add a new organizer for' + response.data.title
+
+          setTimeout(() => {
+            this.GStore.flashMessage = ''
+            this.organize.name = ''
+            this.organize.address = ''
+          }, 3000)
+        })
+        .catch(() => {
+          this.$router.push('NetworkError')
+        })
+    }
+  }
 }
 </script>
 <style  scoped>
-
 b,
 strong {
   font-weight: bolder;
